@@ -1,0 +1,49 @@
+#Generates a pseudo-random number using your LCG setup.
+#If the number is odd, checks whether it’s prime.
+#If the number is even, calculates its factorial.
+
+
+
+import time
+
+# Linear Congruential Generator (LCG) setup
+seed = int(time.time()) % 1000  # changing seed based on current time
+a = 9
+c = 5
+m = 23
+
+def Generate_Random_Number():
+    global seed
+    seed = (a * seed + c) % m
+    return seed
+
+# Function to check if a number is prime
+def is_prime(num):
+    if num <= 1:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+# Function to calculate factorial
+def factorial(num):
+    fact = 1
+    for i in range(1, num + 1):
+        fact *= i
+    return fact
+
+# Generate random number
+rand_num = Generate_Random_Number()
+print("Random Number Generated:", rand_num)
+
+# Odd/even check
+if rand_num % 2 != 0:
+    print("It is odd.")
+    if is_prime(rand_num):
+        print(rand_num, "is a prime number.")
+    else:
+        print(rand_num, "is not a prime number.")
+else:
+    print("It is even.")
+    print("Factorial of", rand_num, "is", factorial(rand_num))
